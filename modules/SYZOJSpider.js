@@ -94,8 +94,16 @@ module.exports = class {
   async data(problem, destination) {
     fs.mkdirsSync(destination);
     // 下载题面给定的数据
+    let last_progress = -1
     await this.agent
       .get(`${this.host}/problem/${problem}/testdata/download`)
+      .on('progress', event => {
+        let now_progress = Math.floor(event.loaded / event.total * 100)
+        if (now_progress >= last_progress + 5) {
+          console.log(`> ${now_progress}%`)
+          last_progress = now_progress
+        }
+      })
       .then(res => {
         fs.writeFileSync(path.join(destination, 'down.zip'), res.body)
         this.console_log('数据下载完毕')
