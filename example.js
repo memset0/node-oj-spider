@@ -17,6 +17,6 @@ let UOJUploader = new UOJUploaderClass(
 );
 
 (async () => {
-	await LOJSpider.download(1, `down`)
-	await MOJUploader.upload(1, `down`)
+  await LOJSpider.download(1, `down`)
+  await MOJUploader.upload(1, `down`)
 })()
