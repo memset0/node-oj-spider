@@ -5,6 +5,7 @@ global.jQuery = require('jQuery');
 global.crypto = require('crypto');
 global.adm_zip = require('adm-zip');
 global.superagent = require('superagent');
+global.superagent_progress = require('superagent-progress');
 
 const { JSDOM } = jsdom;
 global.JQ = text => {

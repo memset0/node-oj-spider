@@ -75,18 +75,11 @@ module.exports = class {
         this.console_log('题面上传完毕')
       })
     // 上传数据
-    let last_progress = -1
     await this.agent
       .post(`${this.host}/problem/${problem}/manage/data`)
       .attach('problem_data_file', path.join(destination, 'data.zip'))
       .field('problem_data_file_submit', 'submit') // 注意当且仅当添加此元素才会触发后端的 upload 方法
-      .on('progress', event => {
-        let now_progress = Math.floor(event.loaded / event.total * 100)
-        if (now_progress >= last_progress + 5) {
-          console.log(`> ${now_progress}%`)
-          last_progress = now_progress
-        }
-      })
+      .use(superagent_progress)
       .then(res => {
         this.console_log('数据上传完毕')
       })
